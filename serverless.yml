@@ -79,7 +79,7 @@ functions:
           method: post
           path: translate
 
-  translation:
+  detection:
     handler: src/handler.detect
     memorySize: 128
     timeout: 900
