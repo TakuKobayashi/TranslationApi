@@ -1,0 +1,26 @@
+swagger: "2.0"
+info:
+  description: "TransrationAPI"
+  version: "0.1.0"
+  title: "TransrationAPI"
+host: "qv2p534cl3.execute-api.ap-northeast-1.amazonaws.com"
+basePath: "/dev"
+schemes:
+- "https"
+paths:
+  /wordcloud:
+    get:
+      summary: "This is a WebAPI, free and unlimited python library that implemented Google Translate API."
+      description: "TransrationAPI is a free and unlimited python library that implemented Google Translate API. This uses the Google Translate Ajax API to make calls to such methods as detect and translate."
+      produces:
+      - "application/json"
+      parameters:
+      - name: "sentence"
+        in: "query"
+        description: "文章"
+        required: true
+      responses:
+        200:
+          description: "successful"
+          schema:
+            type: "object"

@@ -1,0 +1,18 @@
+{
+  "name": "translationApi",
+  "scripts": {
+    "serverless": "serverless",
+    "swagger:build": "redoc-cli bundle swagger.yml -o ./docs/apidocs/index.html"
+  },
+  "description": "Serverless webpack example using python",
+  "author": "TakuKobayashi",
+  "private": true,
+  "license": "MIT",
+  "dependencies": {
+    "redoc": "^2.0.0-rc.20",
+    "redoc-cli": "^0.9.5",
+    "serverless-dotenv-plugin": "^2.1.1",
+    "serverless-offline-python": "^3.22.1",
+    "serverless-python-requirements": "^5.0.1"
+  }
+}
