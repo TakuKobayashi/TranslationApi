@@ -12,9 +12,8 @@ app = Flask(__name__)
 
 @app.route("/transrate", methods=["GET", "POST"])
 def transrate():
-    input_text = request.get_data()
-    print(input_text)
-    translated = translation.transrate("hello")
+    input_text = "hello"
+    translated = translation.transrate(input_text)
     return json.dumps({
         "inlang": translated.src,
         "outlang": translated.dest,

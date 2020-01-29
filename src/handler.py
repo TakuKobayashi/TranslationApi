@@ -1,28 +1,27 @@
 import json
-
+from src.libs import translation
 
 def translate(event, context):
-    body = {
-        "message": "Go Serverless v1.0! Your function executed successfully!",
-        "input": event
-    }
+    input_text = "hello"
+    translated = translation.transrate(input_text)
 
     response = {
-        "statusCode": 200,
-        "body": json.dumps(body)
+        "inlang": translated.src,
+        "outlang": translated.dest,
+        "intext": input_text,
+        "outtext": translated.text,
     }
 
     return response
 
 def detect(event, context):
-    body = {
-        "message": "Go Serverless v1.0! Your function executed successfully!",
-        "input": event
-    }
+    input_text = "こんにちは"
+    detected = translation.detect(input_text)
 
     response = {
-        "statusCode": 200,
-        "body": json.dumps(body)
+        "lang": detected.lang,
+        "confidence": detected.confidence,
+        "intext": input_text,
     }
 
     return response
