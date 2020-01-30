@@ -1,72 +1,192 @@
-swagger: "2.0"
+openapi: 3.0.0
 info:
   description: "TransrationAPI"
   version: "0.1.0"
   title: "TransrationAPI"
-host: "yfpmpep8n1.execute-api.ap-northeast-1.amazonaws.com"
-basePath: "/production"
-schemes:
-- "https"
+servers:
+  - url: https://yfpmpep8n1.execute-api.ap-northeast-1.amazonaws.com/production
 paths:
   /translate:
     get:
-      summary: "This is a WebAPI, free and unlimited python library that implemented Google Translate API."
-      description: "TransrationAPI is a free and unlimited python library that implemented Google Translate API. This uses the Google Translate Ajax API to make calls to such methods as detect and translate."
+      summary: "指定した言語に翻訳します"
+      description: "文字列を指定した言語に翻訳します"
       produces:
       - "application/json"
       parameters:
       - name: "sentence"
         in: "query"
-        description: "文章"
+        description: "入力する文章"
         required: true
+        schema:
+          type: string
+      - name: "dest"
+        in: "query"
+        description: "出力したい文章の言語"
+        required: true
+        schema:
+          type: string
+      - name: "src"
+        in: "query"
+        description: "入力する文章の言語(デフォルトen)"
+        required: false
+        schema:
+          type: string
       responses:
         200:
           description: "successful"
-          schema:
-            type: "object"
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - inlang
+                  - outlang
+                  - intext
+                  - outtext
+                properties:
+                  inlang:
+                    type: string
+                  outlang:
+                    type: string
+                  intext:
+                    type: string
+                  outtext:
+                    type: string
+        400:
+          content:
+            application/json:
+              schema:
+                type: string
     post:
-      summary: "This is a WebAPI, free and unlimited python library that implemented Google Translate API."
-      description: "TransrationAPI is a free and unlimited python library that implemented Google Translate API. This uses the Google Translate Ajax API to make calls to such methods as detect and translate."
+      summary: "入力された文章の言語を推測します"
+      description: "文字列を指定した言語に翻訳します"
       produces:
       - "application/json"
-      parameters:
-      - name: "sentence"
-        in: "query"
-        description: "文章"
+      requestBody:
+        description: "Bodyに以下の形式のSchemaを含むJSONでRequestしてください"
         required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - sentence
+                - dest
+              properties:
+                sentence:
+                  type: string
+                dest:
+                  type: string
+                src:
+                  type: string
       responses:
         200:
           description: "successful"
-          schema:
-            type: "object"
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - inlang
+                  - outlang
+                  - intext
+                  - outtext
+                properties:
+                  inlang:
+                    type: string
+                  outlang:
+                    type: string
+                  intext:
+                    type: string
+                  outtext:
+                    type: string
+              examples:
+                foo:
+                  value: {
+                    "inlang": "en",
+                    "outlang": "jp",
+                    "intext": "hello",
+                    "outtext": "こんにちは"
+                  }
+        400:
+          content:
+            application/json:
+              schema:
+                type: string
+
   /detect:
     get:
-      summary: "This is a WebAPI, free and unlimited python library that implemented Google Translate API."
-      description: "TransrationAPI is a free and unlimited python library that implemented Google Translate API. This uses the Google Translate Ajax API to make calls to such methods as detect and translate."
+      summary: "入力された文章に書かれている言語を推測します"
+      description: "入力された文章に書かれている言語を推測します"
       produces:
       - "application/json"
       parameters:
-      - name: "sentence"
-        in: "query"
-        description: "文章"
-        required: true
+        - name: "sentence"
+          in: "query"
+          description: "入力する文章"
+          required: true
+          schema:
+            type: string
       responses:
         200:
           description: "successful"
-          schema:
-            type: "object"
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - lang
+                  - confidence
+                  - intext
+                properties:
+                  lang:
+                    type: string
+                  confidence:
+                    type: float
+                  intext:
+                    type: string
+        400:
+          content:
+            application/json:
+              schema:
+                type: string
     post:
-      summary: "This is a WebAPI, free and unlimited python library that implemented Google Translate API."
-      description: "TransrationAPI is a free and unlimited python library that implemented Google Translate API. This uses the Google Translate Ajax API to make calls to such methods as detect and translate."
+      summary: "入力された文章に書かれている言語を推測します"
+      description: "入力された文章に書かれている言語を推測します"
       produces:
       - "application/json"
-      parameters:
-      - name: "sentence"
-        in: "query"
-        description: "文章"
+      requestBody:
+        description: "Bodyに以下の形式のSchemaを含むJSONでRequestしてください"
         required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - sentence
+              properties:
+                sentence:
+                  type: string
       responses:
         200:
           description: "successful"
-          schema:
-            type: "object"
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - lang
+                  - confidence
+                  - intext
+                properties:
+                  lang:
+                    type: string
+                  confidence:
+                    type: double
+                  intext:
+                    type: string
+        400:
+          content:
+            application/json:
+              schema:
+                type: string
