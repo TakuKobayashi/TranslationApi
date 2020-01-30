@@ -6,10 +6,13 @@ def translate(event, context):
     translated = translation.transrate(input_text)
 
     response = {
-        "inlang": translated.src,
-        "outlang": translated.dest,
-        "intext": input_text,
-        "outtext": translated.text,
+        "statusCode": 200,
+        "body": json.dumps({
+            "inlang": translated.src,
+            "outlang": translated.dest,
+            "intext": input_text,
+            "outtext": translated.text,
+        }, ensure_ascii=False)
     }
 
     return response
@@ -19,9 +22,12 @@ def detect(event, context):
     detected = translation.detect(input_text)
 
     response = {
-        "lang": detected.lang,
-        "confidence": detected.confidence,
-        "intext": input_text,
+        "statusCode": 200,
+        "body": json.dumps({
+            "lang": detected.lang,
+            "confidence": detected.confidence,
+            "intext": input_text,
+        }, ensure_ascii=False)
     }
 
     return response
